@@ -1,18 +1,18 @@
 mod url;
 mod image;
 
-use url::get_url;
+use url::{get_url, get_comic_chapters};
 use image::get_image;
 
 fn main() {
-    if result() {
-        println!("Done Scrapping")
-    }
+    let domain = String::from("https://readm.today");
+    let comic_url = String::from("https://readm.today/manga/invincible-at-the-start");
+    let response = get_comic_chapters(comic_url, domain);
+    println!("{:#?}", response);
 }
 
-fn result() -> bool {
+fn result(domain: String) -> bool {
     let url = String::from("https://readm.today/manga/after-opening-my-eyes-my-disciples-became-the-great-villainous-empresses/1/all-pages");
-    let domain = String::from("https://readm.today");
     let mut page_counter = 1;
     let result = get_url(url, domain);
     
