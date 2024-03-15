@@ -1,6 +1,9 @@
 use reqwest::blocking::get;
 
-pub fn get_url(url: String, domain: String) -> Result<Vec<String>, Box<dyn std::error::Error>> {
+/// Use for grabbing chapter pages from the image url
+/// 
+/// url = specific chapter url for the specific comic
+pub fn get_url(url: String, domain: String) -> Result<Vec<String>, Box<(dyn std::error::Error + 'static)>> {
     // Send a GET request to the URL
     let response = get(url)?;
     let mut url_container = Vec::new();
@@ -34,7 +37,13 @@ pub fn get_url(url: String, domain: String) -> Result<Vec<String>, Box<dyn std::
     return Ok(url_container);
 }
 
-pub fn get_comic_chapters(comic_url: String, domain: String) -> Result<Vec<String>, Box<dyn std::error::Error>> {
+
+/// Grab all the chapters url for the specific comic
+/// 
+/// comic_url =  url for the comic (eg. https://readm.today/manga/magic-emperor)
+/// 
+/// domain = url for the main site (eg. https://readm.today)
+pub fn get_comic_chapters(comic_url: String, domain: String) -> Result<Vec<String>, Box<(dyn std::error::Error + 'static)>> {
     // Send a GET request to the URL
     let response = get(comic_url)?;
     let mut comic_url_container: Vec<String> = Vec::new();
@@ -54,11 +63,6 @@ pub fn get_comic_chapters(comic_url: String, domain: String) -> Result<Vec<Strin
             let contains_specific_string = sub_strings.iter().any(|&s| s.contains(specific_string));
 
             if contains_specific_string {
-                // for i in sub_strings[0].lines() {
-                //     let i_left: Vec<&str> = i.split('"').collect();
-                //     // comic_url_container.push(i_left[1].to_owned());
-                //     comic_url_container.push(i_left[0].to_owned());
-                // }
                 let i_left = sub_strings[1];
                 let i_left = i_left.replace('"', "");
                 for i in i_left.lines() {
@@ -67,6 +71,10 @@ pub fn get_comic_chapters(comic_url: String, domain: String) -> Result<Vec<Strin
                 }
             }
         }
+    }
+    if !comic_url_container.is_empty() {
+        comic_url_container.remove(0);
+        comic_url_container.reverse();
     }
     return Ok(comic_url_container)
 }

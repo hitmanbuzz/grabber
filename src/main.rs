@@ -6,25 +6,22 @@ use image::get_image;
 
 fn main() {
     let domain = String::from("https://readm.today");
-    let comic_url = String::from("https://readm.today/manga/invincible-at-the-start");
-    let response = get_comic_chapters(comic_url, domain);
-    println!("{:#?}", response);
+    let comic_url = String::from("https://readm.today/manga/magic-emperor");
+    result(domain, comic_url);
 }
 
-fn result(domain: String) -> bool {
-    let url = String::from("https://readm.today/manga/after-opening-my-eyes-my-disciples-became-the-great-villainous-empresses/1/all-pages");
-    let mut page_counter = 1;
-    let result = get_url(url, domain);
-    
-    if let Ok(i) = result {
-        for iu in i {
-            let path = format!("image\\p{}.jpg", page_counter);
-            let img_url = iu.trim_end().to_owned();
-            let response = get_image(path, img_url);
-            page_counter += 1;
-            println!("{:#?}", response);
+/// Use for checking for better response type
+fn result(domain: String, comic_url: String) {  
+    let mut chapter_counter = 0;
+    let response = get_comic_chapters(comic_url, domain.clone());
+    let chapter_url: Vec<String> = Vec::new();
+    if let Ok(u) = response {
+        for uri in u {
+            let result = get_url(uri, domain.clone());
+            println!("Chapter: {}", chapter_counter);
+            println!("{:#?}", result);
+            println!("\n");
+            chapter_counter += 1;
         }
-        return true;
     }
-    return false;
 }

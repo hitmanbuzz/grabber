@@ -1,22 +1,25 @@
 use image::ImageBuffer;
-
 use crate::url::get_url;
 
-pub fn get_image(path: String, img_url: String) -> Result<(), Box<dyn std::error::Error>> {
+/// Download the comic pages as images
+/// 
+/// file_name = the file name for the downloaded images (pages from the chapter)
+pub fn get_image(file_name: String, img_url: String) -> Result<(), Box<dyn std::error::Error>> {
     let img_bytes = reqwest::blocking::get(img_url)?
     .bytes()?;
 
     let image = image::load_from_memory(&img_bytes)?;
 
-    image.save(&path)?;
-    println!("{} has been saved", &path);
+    image.save(&file_name)?;
+    println!("{} has been saved", &file_name);
     Ok(())
 }
 
-// Merging plan will not be used for right now as it is not needed
-// It is not build yet
+/// Merging plan will not be used for right now as it is not needed
+///
+/// It is not build yet
 #[allow(dead_code)]
-pub fn merge_image(url: String, domain: String) -> Result<(), Box<dyn std::error::Error>> {
+pub fn merge_image(url: String, domain: String) -> Result<(), Box<(dyn std::error::Error + 'static)>> {
     let call_url: Vec<String> = get_url(url, domain).expect("Couldn't fetch the url");
     let mut images = Vec::new();
     for mut i in call_url {
