@@ -1,6 +1,6 @@
 # Buzz Grabber
 
-I made this program for personal thing
+I made this program for my personal liking
 
 As of now I only made it to grab comics from my favorite site `https://readm.today`
 
