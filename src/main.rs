@@ -7,7 +7,10 @@ use image::get_image;
 fn main() {
     let domain = String::from("https://readm.today");
     let comic_url = String::from("https://readm.today/manga/the-all-knowing-cultivator");
-    println!("{:#?}",result(domain, comic_url));
+    let comic_title: Vec<&str> = comic_url.split("/manga/").collect();
+    let comic_title = comic_title[1].replace('-', "_");
+    println!("{}", comic_title);
+    // println!("{:#?}",result(domain, comic_url));
 }
 
 /// Use for checking better response type
