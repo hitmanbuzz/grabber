@@ -4,6 +4,8 @@ use crate::url::get_url;
 /// Download the comic pages as images
 /// 
 /// file_name = the file name for the downloaded images (pages from the chapter)
+/// 
+/// img_url = url for the pages image (.jpg)
 pub fn get_image(file_name: String, img_url: String) -> Result<(), Box<dyn std::error::Error>> {
     let img_bytes = reqwest::blocking::get(img_url)?
     .bytes()?;
