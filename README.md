@@ -42,5 +42,7 @@ pub fn get_url(url: String, domain: String) -> Result<Vec<String>, Box<(dyn std:
 ```
 *The above code collect all the .jpg files which is the pages for each chapter from the comic and return as `Vec<String>` type if it is succesfull*
 
-    Status: Partially completed
+`TODO` : Merge page images to make each chapter
+
+    Status: Almost Completed
     Developer: Moirangthem Henthoiba
