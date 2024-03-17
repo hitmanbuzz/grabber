@@ -20,7 +20,7 @@ fn main() -> std::io::Result<()> {
     for i in result(domain, comic_url) {
         if let Ok(uri) = i {
             let comic_chapter_dir = format!("{}/{}/chapter_{}", parent_dir, comic_dir, chapter_counter);
-            fs::create_dir_all(comic_chapter_dir.clone());
+            let _ = fs::create_dir_all(comic_chapter_dir.clone());
             for url in uri {
                 // println!("{}", url);
                 let comic_chapter_pages = format!("{}/page_{}.jpg", comic_chapter_dir, page_counter);
