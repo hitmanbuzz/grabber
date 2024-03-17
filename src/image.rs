@@ -11,9 +11,7 @@ pub fn get_image(file_name: String, img_url: String) -> Result<(), Box<dyn std::
     .bytes()?;
 
     let image = image::load_from_memory(&img_bytes)?;
-
     image.save(&file_name)?;
-    println!("{} has been saved", &file_name);
     Ok(())
 }
 

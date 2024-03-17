@@ -24,8 +24,8 @@ fn main() -> std::io::Result<()> {
             for url in uri {
                 // println!("{}", url);
                 let comic_chapter_pages = format!("{}/page_{}.jpg", comic_chapter_dir, page_counter);
-                let save_pages= get_image(comic_chapter_pages, url);
-                println!("{:#?}", save_pages);
+                let _ = get_image(comic_chapter_pages.clone(), url);
+                println!("{}", comic_chapter_pages.clone());
                 page_counter += 1;
             }
             chapter_counter += 1;
