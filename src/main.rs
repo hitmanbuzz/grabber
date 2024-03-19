@@ -1,5 +1,3 @@
-mod url;
-mod image;
 mod source;
 
 use std::io::{self, stdout, Write};
